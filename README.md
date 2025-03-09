@@ -37,7 +37,7 @@ I'm a **highly skilled AI developer** specializing in **cutting-edge tech** like
 ---  
 
 ### 📡 **Connect With Me**  
-📌 **GitHub:** [1-Man-Armour](https://github.com/1-Man-Armour)  
+📌 **GitHub:** [1-Man-Armour](https://github.com/1Man-Army)  
 📌 **LinkedIn:** [Coming Soon]  
 📌 **Twitter:** [@1ManArmourAI]  
 📌 **Website:** [Coming Soon]  
