@@ -1,0 +1,60 @@
+body {
+    background: #181c24;
+    color: #e0e6ef;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 24px;
+    letter-spacing: 2px;
+    color: #36a2eb;
+}
+
+#agent-table {
+    margin: 32px auto;
+    border-collapse: collapse;
+    width: 90%;
+    background: #23283a;
+    box-shadow: 0 2px 12px #000a;
+}
+
+#agent-table th, #agent-table td {
+    border: 1px solid #2e3448;
+    padding: 10px 8px;
+    text-align: center;
+}
+
+#agent-table th {
+    background: #29304a;
+    color: #36a2eb;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+#agent-table tr:nth-child(even) {
+    background: #22263a;
+}
+
+#agent-table tr:hover {
+    background: #2a314a;
+}
+
+button {
+    display: block;
+    margin: 24px auto;
+    padding: 12px 32px;
+    background: #36a2eb;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: #2380b8;
+}

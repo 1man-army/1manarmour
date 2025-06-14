@@ -1,0 +1,8 @@
+requests
+flask
+websocket-client
+pycryptodome
+pyttsx3
+speechrecognition
+psutil
+colorama

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Professor&Master Dashboard</title>
+  <link rel="stylesheet" href="/statics/dashboard.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.min.js"></script>
+  <script src="/statics/chart.js"></script>
+</head>
+<body>
+  <h1>Live Agent Dashboard</h1>
+  <table id="agent-table">
+    <tr><th>ID</th><th>Status</th><th>CPU</th><th>RAM</th><th>Logs</th><th>Graph</th></tr>
+  </table>
+  <button onclick="startVoice()">🎤 Voice Command</button>
+  <script>
+    const socket = io();
+    let agents = {};
+
+    socket.on("init", data => { agents = data; updateTable(); });
+    socket.on("agent_update", data => {
+      Object.assign(agents, data);
+      updateTable();
+    });
+
+    function updateTable() {
+      const table = document.getElementById("agent-table");
+      table.innerHTML = `<tr><th>ID</th><th>Status</th><th>CPU</th><th>RAM</th><th>Logs</th><th>Graph</th></tr>`;
+      Object.entries(agents).forEach(([id, info]) => {
+        const row = table.insertRow();
+        row.insertCell().innerText = id;
+        row.insertCell().innerText = info.status || "unknown";
+        row.insertCell().innerText = info.cpu || "-";
+        row.insertCell().innerText = info.ram || "-";
+        row.insertCell().innerText = (info.logs || []).join("\n");
+        const chartCell = row.insertCell();
+        const canvas = document.createElement("canvas");
+        canvas.width = 120; canvas.height = 80;
+        chartCell.appendChild(canvas);
+        renderResourceChart(canvas.getContext('2d'), info.cpu || 0, info.ram || 0);
+      });
+    }
+
+    function startVoice() {
+      if (!('webkitSpeechRecognition' in window)) {
+        alert("Voice recognition not supported in this browser.");
+        return;
+      }
+      const recognition = new webkitSpeechRecognition();
+      recognition.lang = "en-US";
+      recognition.onresult = function(event) {
+        const cmd = event.results[0][0].transcript;
+        const agent_id = prompt("Send to agent ID:", Object.keys(agents)[0] || "");
+        fetch("/api/voice", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ cmd, agent_id })
+        }).then(r => r.json()).then(resp => alert("Voice command sent: " + resp.cmd));
+      };
+      recognition.start();
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+
